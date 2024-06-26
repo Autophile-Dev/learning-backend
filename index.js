@@ -8,7 +8,7 @@ const MONGO_URI = "mongodb+srv://waleedzaheer55:mORxmKA29Cu2K3CI@learning-mern.c
 const app = express();
 const dotenv = require('dotenv');
 dotenv.config();
-const userRoute = require('./routes/users');
+const userRoute = require('./src/routes/users');
 
 // Middleware to parse incoming or outgoing JSON format data
 app.use(cors());
