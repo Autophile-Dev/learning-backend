@@ -28,7 +28,10 @@ mongoose.connect(MONGO_URI, {
 
 // Creating routes
 app.use('/auth/users', userRoute);
-// https://localhost:5051/user/add-user
+// https://localhost:5051/user/create-user
+// https://localhost:5051/user/update-user/
+// https://localhost:5051/user/delete-user/
+// https://localhost:5051/user/all-user
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
