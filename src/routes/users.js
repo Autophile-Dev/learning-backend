@@ -63,6 +63,30 @@ router.delete('/delete-user/:id', async (req, res) => {
 
 // Get all data from database
 router.get('/all-user', async (req, res) => {
+    try {
+        const allUsers = await User.find();
+        if (!allUsers) {
+            return res.status(200).json({ message: 'Database is empty, No record in database' });
+        }
+        return res.status(200).json({ users: allUsers });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
 
+// Retrieve specific user information
+router.get('/specific-user/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const specificUser = await User.findById(id);
+        if (!specificUser) {
+            return res.status(404).json({ message: 'This specific user does not exists' });
+        }
+        return res.status(200).json({ user: specificUser });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
 })
 module.exports = router;
