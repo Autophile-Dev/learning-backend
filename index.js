@@ -35,3 +35,7 @@ app.use('/auth/users', userRoute);
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+// Authentication & Authorization API's
+// 1 - Updating Create user api and Schema
+// 2 - Create Login API
