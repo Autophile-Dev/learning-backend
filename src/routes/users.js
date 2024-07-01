@@ -22,7 +22,6 @@ router.post('/create-user', async (req, res) => {
             phoneNum,
             password: hashPassword,
         });
-
         await newUser.save();
         return res.status(200).json({ userCreated: newUser });
     } catch (error) {
@@ -36,11 +35,17 @@ router.post('/login-user', async (req, res) => {
     try {
         const { phoneNum, password } = req.body;
         const user = await User.findOne({ phoneNum });
-        if(!user){
+        if (!user) {
             res.status(404).json({ message: 'User with this mobile number is not existing. Create new account.' });
         }
-
-        
+        // Crack the password here and let the user to login and access the app
+        const validPassword = await bcrypt.compare(password, user.password);
+        if (!validPassword) {
+            res.status(400).json({ message: 'Incorrect Password' });
+        }
+        // Assigning the Token and Send the user data
+        const token = jwt.sign({ _id: user._id }, SECRET_KEY, { expiresIn: '1h' });
+        return res.status(200).json({ user: user, token })
     }
     catch (error) {
 
