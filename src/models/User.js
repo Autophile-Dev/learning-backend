@@ -14,6 +14,7 @@ const userSchema = new mongoose.Schema({
         required: true,
     },
     password: String,
+    loginCount: Number,
 });
 
 const Users = mongoose.model('Users', userSchema);

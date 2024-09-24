@@ -4,7 +4,8 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const PORT = 5051
-const MONGO_URI = "mongodb+srv://waleedzaheer55:mORxmKA29Cu2K3CI@learning-mern.ckdevt2.mongodb.net/?retryWrites=true&w=majority&appName=learning-mern"
+// const MONGO_URI = "mongodb+srv://waleedzaheer55:mORxmKA29Cu2K3CI@learning-mern.ckdevt2.mongodb.net/?retryWrites=true&w=majority&appName=learning-mern"
+const MONGO_URI="mongodb://localhost:27017"
 const app = express();
 const dotenv = require('dotenv');
 dotenv.config();

@@ -31,27 +31,62 @@ router.post('/create-user', async (req, res) => {
 });
 
 // Login API
-router.post('/login-user', async (req, res) => {
+// router.post('/login-user', async (req, res) => {
+//     try {
+//         const { phoneNum, password } = req.body;
+//         const user = await User.findOne({ phoneNum });
+//         if (!user) {
+//             res.status(404).json({ message: 'User with this mobile number is not existing. Create new account.' });
+//         }
+//         // Crack the password here and let the user to login and access the app
+//         const validPassword = await bcrypt.compare(password, user.password);
+//         if (!validPassword) {
+//             res.status(400).json({ message: 'Incorrect Password' });
+//         }
+//         // Assigning the Token and Send the user data
+//         const token = jwt.sign({ _id: user._id }, SECRET_KEY, { expiresIn: '1h' });
+//         return res.status(200).json({ user: user, token })
+//     }
+//     catch (error) {
+
+//     }
+// })
+
+
+
+
+
+
+
+
+
+// Update data api
+
+router.post('/user-login', async (req, res) => {
     try {
+        // login with phone number
         const { phoneNum, password } = req.body;
+
+        // check if user exists or not
         const user = await User.findOne({ phoneNum });
         if (!user) {
-            res.status(404).json({ message: 'User with this mobile number is not existing. Create new account.' });
+            return res.status(400).send({ message: 'User does not exists' });
         }
-        // Crack the password here and let the user to login and access the app
         const validPassword = await bcrypt.compare(password, user.password);
         if (!validPassword) {
-            res.status(400).json({ message: 'Incorrect Password' });
+            return res.status(400).send({ message: 'Password is incorrect' })
         }
-        // Assigning the Token and Send the user data
-        const token = jwt.sign({ _id: user._id }, SECRET_KEY, { expiresIn: '1h' });
-        return res.status(200).json({ user: user, token })
-    }
-    catch (error) {
+        
 
+        // Assign token to user
+        const token = jwt.sign({ _id: user._id }, SECRET_KEY);
+        return res.status(200).send({ user: user, token });
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({ message: err })
     }
 })
-// Update data api
+
 router.put('/update-user/:id', async (req, res) => {
     try {
         // 667d7cc613cc42d668298767 => req.params
